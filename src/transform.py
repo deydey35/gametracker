@@ -1,42 +1,24 @@
 
 import pandas as pd
 
-def transform_players(df: pd.DataFrame) -> pd.DataFrame:
-    """Transforme et nettoie les donnees des joueurs.
-
-    Args:
-        df: DataFrame brut des joueurs.
-
-    Returns:
-        DataFrame nettoye.
-    """
+def transform_players(df):
+    """Nettoie les profils des joueurs"""
     df = df.copy()
-
-    # Supprimer les doublons sur player_id
-    df = df.drop_duplicates(subset=['player_id'])
-
-    # Nettoyer les espaces des username (strip)
-    if 'username' in df.columns:
-        df['username'] = df['username'].str.strip()
-
-    # Convertir les dates d'inscription
-    if 'registration_date' in df.columns:
-        df['registration_date'] = pd.to_datetime(df['registration_date'], errors='coerce')
-        # Remplacer NaT par None pour MySQL
-        df['registration_date'] = df['registration_date'].where(
-            df['registration_date'].notna(), None
-        )
-
-    # Nettoyer les emails invalides (sans @)
-    if 'email' in df.columns:
-        df['email'] = df['email'].where(
-            df['email'].str.contains('@', na=False), None
-        )
     
-    # Remplacer NaN par None pour les autres colonnes si besoin
-    df = df.where(pd.notnull(df), None)
-
-    print(f"Transforme {len(df)} joueurs")
+    # 1. GESTION DES DOUBLONS (Problème n°1)
+    # On nettoie d'abord les espaces pour bien comparer les noms
+    df['username'] = df['username'].astype(str).str.strip() # Problème n°4
+    
+    # On supprime les doublons basés sur le nom d'utilisateur
+    # On garde la première occurrence ('first')
+    df = df.drop_duplicates(subset=['username'], keep='first') 
+    
+    # 2. AUTRES NETTOYAGES
+    df['registration_date'] = pd.to_datetime(df['registration_date'], errors='coerce') # Problème n°3
+    
+    # Invalidation des emails sans @ (Problème n°2)
+    df.loc[~df['email'].astype(str).str.contains('@', na=False), 'email'] = None 
+    
     return df
 
 def transform_scores(df: pd.DataFrame, valid_player_ids: list) -> pd.DataFrame:
