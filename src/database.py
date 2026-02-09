@@ -4,7 +4,7 @@ from contextlib import contextmanager
 from src.config import Config
 
 def get_connection():
-    """Crée une connexion simple à la base de données MySQL [cite: 817-818]."""
+    """Crée une connexion simple à la base de données MySQL"""
     return mysql.connector.connect(
         host=Config.DB_HOST,
         port=Config.DB_PORT,
@@ -28,7 +28,7 @@ def get_connection_with_retry(max_retries=5, delay=2):
 
 @contextmanager  
 def database_connection():
-    """Gère l'ouverture, le commit et la fermeture automatique [cite: 837-838]."""
+    """Gère l'ouverture, le commit et la fermeture automatique."""
     conn = get_connection_with_retry()
     try:
         yield conn # Donne la connexion au bloc 'with' 
