@@ -6,7 +6,7 @@ def load_data(df, table_name, conn):
     cursor = conn.cursor()
     # Remplacement des NaN par None pour MySQL 
     df_sql = df.replace({np.nan: None})
-    
+    print(df_sql)
     cols = ", ".join(df_sql.columns)
     placeholders = ", ".join(["%s"] * len(df_sql.columns))
     updates = ", ".join([f"{c}=VALUES({c})" for c in df_sql.columns[1:]])
