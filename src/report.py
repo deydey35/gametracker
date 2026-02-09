@@ -1,7 +1,11 @@
+import os
 from src.database import database_connection
 from datetime import datetime
 
 def generate_report():
+    # Crée le dossier output s'il n'existe pas
+    os.makedirs("output", exist_ok=True)
+    
     with database_connection() as conn:
         cursor = conn.cursor()
         with open("output/rapport.txt", "w") as f: 
@@ -23,3 +27,4 @@ def generate_report():
             """)
             for row in cursor.fetchall():
                 f.write(f"{row[0]} | {row[1]} | {row[2]}\n")
+    print("Rapport généré avec succès dans output/rapport.txt")
