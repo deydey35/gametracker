@@ -1,16 +1,18 @@
 import pandas as pd
+import numpy as np
 
 def load_data(df, table_name, conn):
+    """Charge les donnees avec gestion des valeurs manquantes."""
     cursor = conn.cursor()
-    # Gestion des NaN pour MySQL [cite: 129]
-    df = df.replace({np.nan: None})
+    # Remplacement des NaN par None pour MySQL 
+    df_sql = df.replace({np.nan: None})
     
-    cols = ", ".join(df.columns)
-    placeholders = ", ".join(["%s"] * len(df.columns))
-    updates = ", ".join([f"{c}=VALUES({c})" for c in df.columns if c != df.columns[0]])
+    cols = ", ".join(df_sql.columns)
+    placeholders = ", ".join(["%s"] * len(df_sql.columns))
+    updates = ", ".join([f"{c}=VALUES({c})" for c in df_sql.columns[1:]])
     
-    sql = f"INSERT INTO {table_name} ({cols}) VALUES ({placeholders}) ON DUPLICATE KEY UPDATE {updates}" 
+    query = f"INSERT INTO {table_name} ({cols}) VALUES ({placeholders}) ON DUPLICATE KEY UPDATE {updates}"
     
-    for _, row in df.iterrows():
-        cursor.execute(sql, tuple(row))
-    print(f"Chargé {len(df)} lignes dans {table_name}")
+    for _, row in df_sql.iterrows():
+        cursor.execute(query, tuple(row))
+    print(f"Chargement termine : {len(df_sql)} lignes inserees dans {table_name}.")
