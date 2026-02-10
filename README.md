@@ -19,7 +19,42 @@ Le pipeline détecte et corrige les **7 problèmes de qualité** identifiés dan
 7.  **Références orphelines** : Suppression des scores faisant référence à un joueur non existant dans la liste nettoyée des profils.
 
 ---
+## 📁 Structure du projet
 
-### Construction et démarrage des services
+```text
+gametracker/
+├── data/
+│   └── raw/
+│       ├── Players.csv
+│       └── Scores.csv
+├── output/                # Dossier des rapports générés
+│   └── rapport.txt
+├── scripts/               # Scripts d'automatisation et SQL
+│   ├── init-db.sql
+│   ├── run_pipeline.sh
+│   └── wait-for-db.sh
+├── src/                   # Code source Python (ETL)
+│   ├── __init__.py
+│   ├── config.py
+│   ├── database.py
+│   ├── extract.py
+│   ├── load.py
+│   ├── main.py
+│   ├── report.py
+│   └── transform.py
+├── .gitignore             # Fichiers à ignorer par Git
+├── docker-compose.yml     # Orchestration des services
+├── Dockerfile             # Configuration de l'image application
+├── README.md              # Documentation du projet
+└── requirements.txt       # Dépendances Python
+
+---
+## Prérequis
+- Docker et Docker Compose installés
+- Accès réseau pour le build de l'image Python
+
+## Construction et démarrage des services
 ```bash
 docker compose up --build -d
+
+Cette commande suffit à elle seule. C'est le bouton de démarrage qui permet d'orchestrer la mise en place de  l'environnement multi-services en une seule action.
