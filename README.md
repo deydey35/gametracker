@@ -22,4 +22,4 @@ Le pipeline détecte et corrige les **7 problèmes de qualité** identifiés dan
 
 ### Construction et démarrage des services
 ```bash
-docker compose up -d --build
+docker compose up --build -d
