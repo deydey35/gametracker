@@ -12,4 +12,4 @@ COPY . .
 
 RUN chmod +x scripts/*.sh
 
-CMD ["./scripts/run_pipeline.sh"] # Pour automatisation
+CMD ["./scripts/run_pipeline.sh"] 
