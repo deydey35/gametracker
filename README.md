@@ -1,6 +1,6 @@
 # 🎮 GameTracker - Pipeline ETL Automatisé
 
-## 📝 Présentation du projet
+## Présentation du projet
 
 GameTracker est une startup spécialisée dans l'analyse des performances des joueurs de jeux vidéo. Ce projet consiste à mettre en œuvre un pipeline **ETL** (Extract, Transform, Load) robuste et conteneurisé pour traiter des données brutes de profils de joueurs et de sessions de jeu.
 
@@ -8,7 +8,7 @@ L'objectif est de transformer des fichiers CSV "sales" en une base de données M
 
 ---
 
-## 🛠️ Problèmes de qualité traités
+## Problèmes de qualité traités
 
 Le pipeline détecte et corrige les **7 problèmes de qualité** identifiés dans les données sources :
 
@@ -22,7 +22,7 @@ Le pipeline détecte et corrige les **7 problèmes de qualité** identifiés dan
 
 ---
 
-## 📁 Structure du projet
+## Structure du projet
 
 L'arborescence respecte l'organisation suivante pour garantir la modularité du code :
 
@@ -72,7 +72,7 @@ docker compose up --build -d
 
 ```
 
-### 🔍 Détails de l'automatisation
+### Détails de l'automatisation
 
 Cette commande suffit à elle seule pour piloter le projet. C'est le "bouton de démarrage" qui permet d'orchestrer la mise en place de l'environnement multi-services en une seule action :
 
