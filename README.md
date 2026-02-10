@@ -1,7 +1,3 @@
-Voici le contenu complet de ton fichier **README.md**, nettoyé de toute citation et prêt à être utilisé pour ton rendu final.
-
----
-
 # 🎮 GameTracker - Pipeline ETL Automatisé
 
 ## 📝 Présentation du projet
